@@ -1,17 +1,18 @@
 #include<stdio.h>
 #include<string.h>
 struct stack{
-	int index[10005];
-	int x[10005];
-	int y[10005];
-	int top;
+	int index;
+	int x;
+	int y;
 };
-int w, h, tot;
-char map[105][105];
+int top = -1;
 const int dir[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 int main (void)
 {
-	struct stack info={{0}, {0}, {0}, -1};
+	int w, h, tot;
+	char map[105][105];
+
+	struct stack info[1000]={{0,0,0}};
 	while (~scanf ("%d %d", &w, &h) && (w||h))
 	{
 		memset (map, 0, sizeof(map));
@@ -25,35 +26,35 @@ int main (void)
 			for (int y = 0; y < w && !flag; y++)
 				if (map[x][y] == '@')
 				{
-					info.top++;
-					info.x[info.top] = x;
-					info.y[info.top] = y;
+					top++;
+					info[top].x = x;
+					info[top].y = y;
 					flag = 1;
 				}
 
-		while (info.top != -1)
+		while (top != -1)
 			{
 				int has_next = 0;
-				map[info.x[info.top]][info.y[info.top]] = '#';
-				while (info.index[info.top]<4)
+				map[info[top].x][info[top].y] = '#';
+				while (info[top].index < 4)
 				{
-					int dx = info.x[info.top] + dir[info.index[info.top]][0];
-					int dy = info.y[info.top] + dir[info.index[info.top]][1];
-					info.index[info.top]++;
+					int dx = info[top].x + dir[info[top].index][0];
+					int dy = info[top].y + dir[info[top].index][1];
+					info[top].index++;
 					if (dx >= 0 && dy >= 0 && dx < h && dy < w && map[dx][dy] == '.')
 					{
 						tot++;
-						info.top++;
-						info.x[info.top] = dx;
-						info.y[info.top] = dy;
+						top++;
+						info[top].x = dx;
+						info[top].y = dy;
 						has_next = 1;
 						break;
 					}
 				}
 				if (!has_next)
 				{
-					info.index[info.top] = 0;
-					info.top--;
+					info[top].index = 0;
+					top--;
 				}
 			}
 			printf ("%d\n", tot);
