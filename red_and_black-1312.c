@@ -15,7 +15,7 @@ int main (void)
 	while (~scanf ("%d %d", &w, &h) && (w||h))
 	{
 		memset (map, 0, sizeof(map));
-		tot = 0;
+		tot = 1;
 		for (int i = 0; i < h; i++)
 			scanf ("%s", map[i]);
 
@@ -28,28 +28,36 @@ int main (void)
 					info.top++;
 					info.x[info.top] = x;
 					info.y[info.top] = y;
-					while (info.top == -1)
-					{
-						int has_next = 0;
-						map[info.x[info.top]][info.y[info.top]] = '#';
-						while (info.index[info.top]<4)
-						{
-							int dx = info.x[info.top] + dir[info.index[info.top]++][0];
-							int dy = info.y[info.top] + dir[info.index[info.top]++][1];
-							if (dx >= 0 && dy >= 0 && dx < w && dy < h && map[dx][dy] == '.')
-							{
-								info.top++;
-								info.x[info.top] = dx;
-								info.y[info.top] = dy;
-								has_next = 1;
-							}
-						}
-						if (!has_next)
-							info.top--;
-					}
-					printf ("%d\n", tot);
 					flag = 1;
 				}
+
+		while (info.top != -1)
+			{
+				int has_next = 0;
+				map[info.x[info.top]][info.y[info.top]] = '#';
+				while (info.index[info.top]<4)
+				{
+					int dx = info.x[info.top] + dir[info.index[info.top]][0];
+					int dy = info.y[info.top] + dir[info.index[info.top]][1];
+					info.index[info.top]++;
+					if (dx >= 0 && dy >= 0 && dx < h && dy < w && map[dx][dy] == '.')
+					{
+						tot++;
+						info.top++;
+						info.x[info.top] = dx;
+						info.y[info.top] = dy;
+						has_next = 1;
+						break;
+					}
+				}
+				if (!has_next)
+				{
+					info.index[info.top] = 0;
+					info.top--;
+				}
+			}
+			printf ("%d\n", tot);
+
 	}
 	return 0;
 }
