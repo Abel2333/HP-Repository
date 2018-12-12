@@ -29,7 +29,7 @@ int main (void)
 
 		int index = 0;
 		int has_found = 0;
-		while (map[step.x[step.head]][step.y[step.head]] != '*' && !has_found)
+		while (!has_found)
 		{
 			int tmp = step.tail;
 			while (step.head != tmp && !has_found)
