@@ -1,15 +1,14 @@
 #include<stdio.h>
 struct queue{
-	int x[105];
-	int y[105];
-	int head;
-	int tail;
-};
+	int x;
+	int y;
+}step[105];
 const int dir[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 char map[105][105];
 int main (void)
 {
-	struct queue step = {{0}, {0}, 0, 0};
+	int head = 0;
+	int tail = 0;
 	int w, h;
 	while (scanf ("%d %d", &h, &w) && (w||h))
 	{
@@ -22,39 +21,39 @@ int main (void)
 				{
 					flag = 0;
 					map[x][y] = '#';
-					step.x[step.tail] = x;
-					step.y[step.tail] = y;
-					step.tail++;
+					step[tail].x = x;
+					step[tail].y = y;
+					tail++;
 				}
 
 		int index = 0;
 		int has_found = 0;
 		while (!has_found)
 		{
-			int tmp = step.tail;
-			while (step.head != tmp && !has_found)
+			int tmp = tail;
+			while (head != tmp && !has_found)
 			{
 				for (int i = 0; i < 4; i++)
 				{
-					int dx = step.x[step.head] + dir[i][0];
-					int dy = step.y[step.head] + dir[i][1];
+					int dx = step[head].x + dir[i][0];
+					int dy = step[head].y + dir[i][1];
 					if (map[dx][dy] == '*')
 					{
 						has_found = 1;
-						step.x[step.tail] = dx;
-						step.y[step.tail] = dy;
-						step.tail = (step.tail + 1) % 105;
+						step[tail].x = dx;
+						step[tail].y = dy;
+						tail = (tail + 1) % 105;
 						break;
 					}
 					if (dx < h && dy < w && dx >= 0 && dy >= 0 && map[dx][dy] == '.')
 					{
 						map[dx][dy] = '#';
-						step.x[step.tail] = dx;
-						step.y[step.tail] = dy;
-						step.tail = (step.tail + 1) % 105;
+						step[tail].x = dx;
+						step[tail].y = dy;
+						tail = (tail + 1) % 105;
 					}
 				}
-				step.head = (step.head + 1) % 105;
+				head = (head + 1) % 105;
 			}
 			index++;
 		}
