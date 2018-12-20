@@ -12,11 +12,29 @@ int main (void)
 		dis[i] = INF;
 	dis[aims] = 0;
 
-	for (int index = 1; index < n; index++)
+	int check = 1;
+	for (int index = 1; index < n && check; index++)
+	{
+		check = 0;
 		for (int i = 0; i < way; i++)
 			if (dis[v[i]] > dis[u[i]] + w[i])
+			{
 				dis[v[i]] = dis[u[i]] + w[i];
-	for (int i = 1; i <= n; i++)
-		printf ("%d%c", dis[i], i<n?' ':'\n');
+				check = 1;
+			}
+	}
+
+	int flag = 1;
+	for (int i = 0; i < way && flag; i++)
+		if (dis[v[i]] > dis[u[i]] + w[i])
+			flag = 0;
+	if (flag)
+	{
+		for (int i = 1; i <= n; i++)
+			printf ("%d%c", dis[i], i<n?' ':'\n');
+	}
+	else
+		printf ("This figure contains a negative loop");
+
 	return 0;
 }
