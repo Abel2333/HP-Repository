@@ -38,7 +38,6 @@ int main (void)
 	}
 	
 	for (int i = 1; i <= n; i++)
-		printf ("%d ", dis[i]);
-	printf ("\n");
+		printf ("%d%c", dis[i], i<n?' ':'\n');
 	return 0;
 }

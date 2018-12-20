@@ -23,10 +23,7 @@ int main (void)
 				if (e[i][j] > e[i][index] + e[index][j])
 					e[i][j] = e[i][index] + e[index][j];
 	for (int x = 1; x <= n; x++)
-	{
 		for (int y = 1; y <= n; y++)
-			printf ("%d ", e[x][y]);
-		printf ("\n");
-	}
+			printf ("%d%c", e[x][y], y<n?' ':'\n');
 	return 0;
 }

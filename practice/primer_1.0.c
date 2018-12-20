@@ -2,7 +2,7 @@
 #include<stdio.h>
 int main (void)
 {
-	int n, i, is_prim;
+	int n, i, is_prim, count = 1;
 	scanf ("%d", &n);
 	for (int index = 2; index <= n; index++)
 	{
@@ -13,7 +13,9 @@ int main (void)
 				break;
 			}
 		if (is_prim)
-			printf ("%d\n", index);
+			printf ("%d%c", index, count++%9==0?'\n':' ');
 	}
+	if (--count%9)
+		printf ("\n");
 	return 0;
 }

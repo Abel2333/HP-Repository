@@ -3,7 +3,7 @@
 int num[100000005];
 int main (void)
 {
-	int n;
+	int n, count = 0;
 	scanf ("%d", &n);
 	for (int prim = 2; prim*prim <= n; prim++)
 		if (!num[prim])
@@ -12,7 +12,9 @@ int main (void)
 
 	for (int i = 2; i <=n; i++)
 		if (!num[i])
-			printf ("%d\n", i);
+			printf ("%d%c", i, ++count%9==0?'\n':' ');
+	if (count%9)
+		printf ("\n");
 
 	return 0;
 }
