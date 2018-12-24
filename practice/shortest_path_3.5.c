@@ -32,8 +32,11 @@ int main (void)
 			if (dis[v[k]] > dis[u[k]] + w[k])
 			{
 				dis[v[k]] = dis[u[k]] + w[k];
-				book[v[k]] = 1;
-				queue[tail++] = v[k];
+				if (!book[v[k]])
+				{
+					queue[tail++] = v[k];
+					book[v[k]] = 1;
+				}
 			}
 			k = next[k];
 		}
