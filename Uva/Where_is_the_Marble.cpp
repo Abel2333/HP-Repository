@@ -1,23 +1,24 @@
-#include<cstdio>
+#include<iostream>
 #include<algorithm>
 using namespace std;
 const int maxn = 10000;
 
 int main (void)
 {
-	int n, g, x, num[maxn], kase = 0;
-	while (scanf("%d%d", &n, &g) && n)
+	int n, m, marb[maxn] = {0}, kase = 0;
+	while (cin>>n>>m && (n || m))
 	{
-		printf("CASE# %d:\n", ++kase);
-		for (int i = 0; i < n; i++) 
-			scanf("%d", &num[i]);
-		sort(num, num + n);
-		while (q--)
+		cout<<"CASE# "<<++kase<<':'<<endl;
+		for (int i = 0; i < n; i++)
+			cin>>marb[i];
+		sort(marb, marb+n);
+		while (m--)
 		{
-			scanf("%d", &x);
-			int p = low_bound(num, num + n) - num;
-			if (num[p] == x) printf("%d found at %d\n", x, p+1);
-			else printf("%d not found\n", x);
+			int x = 0;
+			cin>>x;
+			int p = lower_bound(marb, marb+n, x) - marb;
+			if (marb[p] == x) cout<<x<<" found at "<<p+1<<endl;
+			else cout<<x<<" not found"<<endl;
 		}
 	}
 	return 0;
