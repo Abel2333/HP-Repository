@@ -16,7 +16,8 @@ int main (void)
 		memset(buff, 0, sizeof(buff));
 		for (int i = 0, j = 0; i < s.length(); i++)
 			if (isalpha(s[i])) buff[j++] = tolower(s[i]);
-		dict.insert(buff);
+		if (buff[0] != '\0')
+			dict.insert(buff);
 	}
 	for (set<string>::iterator it = dict.begin(); it != dict.end(); it++)
 		cout<<*it<<endl;
